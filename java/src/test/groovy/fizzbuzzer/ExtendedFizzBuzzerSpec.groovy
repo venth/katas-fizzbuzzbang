@@ -81,8 +81,10 @@ class ExtendedFizzBuzzerSpec extends Specification {
 
         given:
             def numberOfStudents = 32
+            def irrelevantString = "someString"
+
             bangAppender.appendBangTo(_ as String) >> {
-                return BANG
+                return irrelevantString + BANG
             }
 
         when:
@@ -91,7 +93,31 @@ class ExtendedFizzBuzzerSpec extends Specification {
             }
 
         then:
-            bangAppender.appendBangTo(_ as String) * 2
+            2 * bangAppender.appendBangTo(_ as String)
+    }
+
+    def "BangAppender is not invoked before 15th student (bang threshold)"() {
+        given:
+            def numberOfStudents = 14
+            def bangThreshold = numberOfStudents + 1
+            def irrelevantString = "someString"
+
+            def bangAppender = Mock(BangAppender)
+
+
+            bangAppender.appendBangTo(_ as String) >> {
+                return irrelevantString + BANG
+            }
+
+            def secondExtendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold)
+
+        when:
+            for (int i = 1; i < numberOfStudents + 1; i++) {
+                secondExtendedFizzBuzzer.getAnswer(i)
+            }
+
+        then:
+             0 * bangAppender.appendBangTo(_ as String)
     }
 
 }

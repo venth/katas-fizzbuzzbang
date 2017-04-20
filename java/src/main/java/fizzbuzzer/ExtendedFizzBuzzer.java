@@ -7,7 +7,11 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
     private final String POW = "Pow";
     private final String MRRU = "Mrru";
 
-    private final String CORRECTION_REGEX = "^[0-9]{1,2}.*[a-z]$";
+    private final String STARTS_WITH_DIGITS = "^[0-9]{1,2}";
+
+    private final String ENDS_WITH_LETTER = "[a-z]$";
+
+    private final String CORRECTION_REGEX = STARTS_WITH_DIGITS + ".*" + ENDS_WITH_LETTER;
 
     private int studentIndex = 0;
 
@@ -22,7 +26,7 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     public String getAnswer(int number){
         ++studentIndex;
-        return appendBangToAnswer(getBaseAnswer(number));
+        return appendBangToAnswerIfNecessary(getBaseAnswer(number));
     }
 
     private String getBaseAnswer(int number) {
@@ -56,18 +60,21 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
             answer = answer + MRRU;
         }
 
-        return correctAnswer(answer);
+        return correctAnswerIfNecessary(answer);
     }
 
-    private String correctAnswer(String answer) {
-        if (answer.matches(CORRECTION_REGEX)) {
+    private String correctAnswerIfNecessary(String answer) {
+
+        boolean answerStartsWithDigitsAndEndsWithLetter = answer.matches(CORRECTION_REGEX);
+
+        if (answerStartsWithDigitsAndEndsWithLetter) {
             return answer.replaceFirst("^[0-9]{1,2}", "");
         } else {
             return answer;
         }
     }
 
-    private String appendBangToAnswer(String baseAnswer) {
+    private String appendBangToAnswerIfNecessary(String baseAnswer) {
         if (studentIndex % bangThreshold == 0) {
             studentIndex = 0;
             baseAnswer = bangAppender.appendBangTo(baseAnswer);
