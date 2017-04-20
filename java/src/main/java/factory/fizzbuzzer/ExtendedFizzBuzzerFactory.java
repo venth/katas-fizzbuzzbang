@@ -1,4 +1,7 @@
-package factory;
+package factory.fizzbuzzer;
+
+import java.util.Map;
+import java.util.function.Predicate;
 
 import appender.BangAppender;
 import fizzbuzzer.ExtendedFizzBuzzer;
@@ -8,12 +11,9 @@ import fizzbuzzer.ExtendedFizzBuzzer;
  */
 public class ExtendedFizzBuzzerFactory implements AbstractExtendedFizzBuzzerFactory {
 
-
     private static ExtendedFizzBuzzerFactory instance;
 
-    private ExtendedFizzBuzzerFactory(){
-
-    }
+    private ExtendedFizzBuzzerFactory(){}
 
     public static ExtendedFizzBuzzerFactory getInstance() {
         if (instance == null) {
@@ -23,8 +23,8 @@ public class ExtendedFizzBuzzerFactory implements AbstractExtendedFizzBuzzerFact
     }
 
     @Override
-    public ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold) {
+    public ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold, Map<Predicate<Integer>, String> behaviorMap) {
         BangAppender bangAppender = new BangAppender();
-        return new ExtendedFizzBuzzer(bangAppender, bangThreshold);
+        return new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorMap);
     }
 }

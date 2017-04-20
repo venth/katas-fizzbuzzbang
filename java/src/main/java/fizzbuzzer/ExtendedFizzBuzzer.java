@@ -1,5 +1,8 @@
 package fizzbuzzer;
 
+import java.util.Map;
+import java.util.function.Predicate;
+
 import appender.BangAppender;
 
 public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
@@ -19,9 +22,12 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     private BangAppender bangAppender;
 
-    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold){
+    private Map<Predicate<Integer>, String> behaviorMap;
+
+    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, Map<Predicate<Integer>, String> behaviorMap){
         this.bangAppender = bangAppender;
         this.bangThreshold = bangThreshold;
+        this.behaviorMap = behaviorMap;
     }
 
     public String getAnswer(int number){
@@ -30,6 +36,8 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
     }
 
     private String getBaseAnswer(int number) {
+
+        StringBuilder answerBuilder = new StringBuilder();
 
         String numberAsString = String.valueOf(number);
         boolean isNumberDivisibleByThree = number % 3 == 0;
@@ -41,24 +49,11 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
             return FIZZ + BUZZ + POW + MRRU;
         }
 
-        boolean numberContainsThree = numberAsString.contains("3");
-        boolean numberContainsFive = numberAsString.contains("5");
-
-        if (isNumberDivisibleByFive) {
-            answer = BUZZ;
-        }
-
-        if (isNumberDivisibleByThree) {
-            answer = FIZZ;
-        }
-
-        if (numberContainsThree || isNumberDivisibleByThree) {
-            answer = answer + POW;
-        }
-
-        if (numberContainsFive || isNumberDivisibleByFive) {
-            answer = answer + MRRU;
-        }
+        behaviorMap.forEach((condition, stringToAppend) -> {
+            if (condition.test(number)) {
+                answerBuilder.append(stringToAppend);
+            }
+        });
 
         return correctAnswerIfNecessary(answer);
     }
