@@ -1,20 +1,14 @@
 package fizzbuzzer;
 
-import java.util.Map;
-import java.util.function.Predicate;
+import java.util.List;
 
 import appender.BangAppender;
+import factory.behavior.ConditionalBehavior;
 
 public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     private final String POW = "Pow";
     private final String MRRU = "Mrru";
-
-    private final String STARTS_WITH_DIGITS = "^[0-9]{1,2}";
-
-    private final String ENDS_WITH_LETTER = "[a-z]$";
-
-    private final String CORRECTION_REGEX = STARTS_WITH_DIGITS + ".*" + ENDS_WITH_LETTER;
 
     private int studentIndex = 0;
 
@@ -22,12 +16,12 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     private BangAppender bangAppender;
 
-    private Map<Predicate<Integer>, String> behaviorMap;
+    private List<ConditionalBehavior> behaviors;
 
-    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, Map<Predicate<Integer>, String> behaviorMap){
+    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, List<ConditionalBehavior> behaviors){
         this.bangAppender = bangAppender;
         this.bangThreshold = bangThreshold;
-        this.behaviorMap = behaviorMap;
+        this.behaviors = behaviors;
     }
 
     public String getAnswer(int number){
@@ -39,35 +33,29 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
         StringBuilder answerBuilder = new StringBuilder();
 
-        String numberAsString = String.valueOf(number);
         boolean isNumberDivisibleByThree = number % 3 == 0;
         boolean isNumberDivisibleByFive = number % 5 == 0;
 
-        String answer = numberAsString;
+        String answer = "";
 
         if (isNumberDivisibleByThree && isNumberDivisibleByFive) {
             return FIZZ + BUZZ + POW + MRRU;
         }
 
-        behaviorMap.forEach((condition, stringToAppend) -> {
-            if (condition.test(number)) {
-                answerBuilder.append(stringToAppend);
-            }
+        behaviors.forEach(behavior -> {
+          if (behavior.testCondition(number)) {
+              answerBuilder.append(behavior.getOperator().apply(answer));
+          }
         });
 
-        return correctAnswerIfNecessary(answer);
-    }
-
-    private String correctAnswerIfNecessary(String answer) {
-
-        boolean answerStartsWithDigitsAndEndsWithLetter = answer.matches(CORRECTION_REGEX);
-
-        if (answerStartsWithDigitsAndEndsWithLetter) {
-            return answer.replaceFirst("^[0-9]{1,2}", "");
-        } else {
-            return answer;
+        String answerToReturn = answerBuilder.toString();
+        if (answerToReturn.isEmpty()) {
+            answerToReturn = String.valueOf(number);
         }
+
+        return answerToReturn;
     }
+
 
     private String appendBangToAnswerIfNecessary(String baseAnswer) {
         if (studentIndex % bangThreshold == 0) {

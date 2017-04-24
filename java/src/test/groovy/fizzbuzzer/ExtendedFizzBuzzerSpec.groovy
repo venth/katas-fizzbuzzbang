@@ -1,6 +1,7 @@
 package fizzbuzzer
 
 import appender.BangAppender
+import factory.behavior.AppenderBehaviorFactory
 import spock.lang.Specification
 
 class ExtendedFizzBuzzerSpec extends Specification {
@@ -16,7 +17,9 @@ class ExtendedFizzBuzzerSpec extends Specification {
 
     def bangAppender = Mock(BangAppender)
 
-    ExtendedFizzBuzzer extendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold)
+    AppenderBehaviorFactory behaviorFactory = AppenderBehaviorFactory.getInstance();
+
+    ExtendedFizzBuzzer extendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorFactory.createBehaviorList())
 
     def 'On integers divisible by three returns "Fizz" and "POW"'() {
 
@@ -109,7 +112,7 @@ class ExtendedFizzBuzzerSpec extends Specification {
                 return irrelevantString + BANG
             }
 
-            def secondExtendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold)
+            def secondExtendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorFactory.createBehaviorList())
 
         when:
             for (int i = 1; i < numberOfStudents + 1; i++) {

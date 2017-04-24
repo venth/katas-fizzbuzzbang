@@ -20,9 +20,9 @@ class ExtendedFizzBuzzerFactoryTest extends Specification {
         given:
             def extendedFizzBuzzerFacory = ExtendedFizzBuzzerFactory.getInstance()
             def irrelevantBangThreshold = 15
-            def irrelevantBehaviorMap = Collections.emptyMap()
+            def irrelevantBehaviorList = Collections.emptyList()
         when:
-            def createdExtendedFizzBuzzer = extendedFizzBuzzerFacory.createExtendedFizzBuzzer(irrelevantBangThreshold, irrelevantBehaviorMap)
+            def createdExtendedFizzBuzzer = extendedFizzBuzzerFacory.createExtendedFizzBuzzer(irrelevantBangThreshold, irrelevantBehaviorList)
         then:
             createdExtendedFizzBuzzer instanceof ExtendedFizzBuzzer
     }

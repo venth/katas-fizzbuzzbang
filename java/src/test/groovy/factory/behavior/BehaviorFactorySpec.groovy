@@ -8,19 +8,19 @@ class BehaviorFactorySpec extends Specification {
 
     def 'There is only one instance of BehaviorFactory'() {
         when:
-            def firstFactoryReference = BehaviorFactory.getInstance()
-            def secondFactoryReference = BehaviorFactory.getInstance()
+            def firstFactoryReference = AppenderBehaviorFactory.getInstance()
+            def secondFactoryReference = AppenderBehaviorFactory.getInstance()
         then:
             firstFactoryReference == secondFactoryReference
     }
 
     def 'ExtendedFizzBuzzerFacory creates BehaviorMaps'() {
         given:
-            def behaviorFactory = BehaviorFactory.getInstance()
+            def behaviorFactory = AppenderBehaviorFactory.getInstance()
         when:
-            def createdBehaviorMap = behaviorFactory.createBehaviorMap()
+            def createdBehaviorList = behaviorFactory.createBehaviorList()
         then:
-             createdBehaviorMap instanceof Map<Predicate<Integer>, String>
+             createdBehaviorList instanceof List<ConditionalBehavior>
     }
 
 }

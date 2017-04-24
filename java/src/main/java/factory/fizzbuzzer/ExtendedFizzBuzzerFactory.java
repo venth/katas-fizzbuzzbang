@@ -1,9 +1,11 @@
 package factory.fizzbuzzer;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
 import appender.BangAppender;
+import factory.behavior.ConditionalBehavior;
 import fizzbuzzer.ExtendedFizzBuzzer;
 
 /**
@@ -23,8 +25,8 @@ public class ExtendedFizzBuzzerFactory implements AbstractExtendedFizzBuzzerFact
     }
 
     @Override
-    public ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold, Map<Predicate<Integer>, String> behaviorMap) {
+    public ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold, List<ConditionalBehavior> behaviorList) {
         BangAppender bangAppender = new BangAppender();
-        return new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorMap);
+        return new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorList);
     }
 }

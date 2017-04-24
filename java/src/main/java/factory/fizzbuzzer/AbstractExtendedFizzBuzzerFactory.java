@@ -1,8 +1,10 @@
 package factory.fizzbuzzer;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import factory.behavior.ConditionalBehavior;
 import fizzbuzzer.ExtendedFizzBuzzer;
 
 /**
@@ -10,6 +12,6 @@ import fizzbuzzer.ExtendedFizzBuzzer;
  */
 public interface AbstractExtendedFizzBuzzerFactory {
 
-    ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold, Map<Predicate<Integer>, String> behaviorMap);
+    ExtendedFizzBuzzer createExtendedFizzBuzzer(int bangThreshold, List<ConditionalBehavior> behaviorList);
 
 }
