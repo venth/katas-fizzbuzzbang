@@ -5,7 +5,7 @@ package fizzbuzzer;
  */
 public class FizzBuzzer extends AbstractFizzBuzzer {
 
-    public String getAnswer(int number){
+    public String getAnswer(int number) {
         boolean isNumberDivisibleByThree = number % 3 == 0;
         boolean isNumberDivisibleByFive = number % 5 == 0;
 

@@ -19,9 +19,7 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     private List<ConditionalBehavior> behaviors;
 
-
-
-    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, List<ConditionalBehavior> behaviors){
+    public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, List<ConditionalBehavior> behaviors) {
         this.bangAppender = bangAppender;
         this.bangThreshold = bangThreshold;
         this.behaviors = behaviors;
