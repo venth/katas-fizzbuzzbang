@@ -1,6 +1,7 @@
 package fizzbuzzer;
 
 import java.util.List;
+import java.util.function.Function;
 
 import appender.BangAppender;
 import factory.behavior.ConditionalBehavior;
@@ -17,6 +18,10 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
     private BangAppender bangAppender;
 
     private List<ConditionalBehavior> behaviors;
+
+    public String fizzBuzzBang(int number, Function<Integer, String> operator) {
+        return operator.apply(number);
+    }
 
     public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, List<ConditionalBehavior> behaviors){
         this.bangAppender = bangAppender;
@@ -44,7 +49,7 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
         behaviors.forEach(behavior -> {
           if (behavior.testCondition(number)) {
-              answerBuilder.append(behavior.getOperator().apply(answer));
+              answerBuilder.append(fizzBuzzBang(number, behavior.getOperator()));
           }
         });
 

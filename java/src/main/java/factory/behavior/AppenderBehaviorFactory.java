@@ -2,6 +2,7 @@ package factory.behavior;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
@@ -36,7 +37,7 @@ public class AppenderBehaviorFactory implements AbstractConditionalBehaviorFacto
     }
 
     private void addFizzBehavior(List<ConditionalBehavior> conditionalBehaviors) {
-        UnaryOperator<String> appendFizzOperator = s -> s + "Fizz";
+        Function<Integer, String> appendFizzOperator = s -> "Fizz";
 
         ConditionalBehavior fizzBehavior = new ConditionalBehavior(number -> {
             boolean isNumberDivisibleByThree = number % 3 == 0;
@@ -49,7 +50,7 @@ public class AppenderBehaviorFactory implements AbstractConditionalBehaviorFacto
 
     private void addPowBehavior(List<ConditionalBehavior> conditionalBehaviors) {
 
-        UnaryOperator<String> appendPowOperator = s -> s + "Pow";
+        Function<Integer, String> appendPowOperator = s -> "Pow";
 
         ConditionalBehavior powBehavior = new ConditionalBehavior(number -> {
             boolean isNumberDivisibleByThree = number % 3 == 0;
@@ -62,7 +63,7 @@ public class AppenderBehaviorFactory implements AbstractConditionalBehaviorFacto
     }
 
     private void addBuzzBehavior(List<ConditionalBehavior> behaviorList) {
-        UnaryOperator<String> appendBuzzOperator = s -> s + "Buzz";
+        Function<Integer, String> appendBuzzOperator = s -> "Buzz";
 
         ConditionalBehavior buzzBehavior = new ConditionalBehavior(number -> {
             boolean isNumberDivisibleByFive = number % 5 == 0;
@@ -74,7 +75,7 @@ public class AppenderBehaviorFactory implements AbstractConditionalBehaviorFacto
 
     private void addMrruBehavior(List<ConditionalBehavior> behaviorList) {
 
-        UnaryOperator<String> appendMrruOperator = s -> s + "Mrru";
+        Function<Integer, String> appendMrruOperator = s -> "Mrru";
 
         ConditionalBehavior mrruBehavior = new ConditionalBehavior(number -> {
             boolean isNumberDivisibleByFive = number % 5 == 0;

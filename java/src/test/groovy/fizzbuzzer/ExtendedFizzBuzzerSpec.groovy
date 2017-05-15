@@ -17,7 +17,7 @@ class ExtendedFizzBuzzerSpec extends Specification {
 
     def bangAppender = Mock(BangAppender)
 
-    AppenderBehaviorFactory behaviorFactory = AppenderBehaviorFactory.getInstance();
+    AppenderBehaviorFactory behaviorFactory = AppenderBehaviorFactory.getInstance()
 
     ExtendedFizzBuzzer extendedFizzBuzzer = new ExtendedFizzBuzzer(bangAppender, bangThreshold, behaviorFactory.createBehaviorList())
 
