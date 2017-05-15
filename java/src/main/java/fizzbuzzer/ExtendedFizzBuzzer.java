@@ -19,9 +19,7 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
     private List<ConditionalBehavior> behaviors;
 
-    public String fizzBuzzBang(int number, Function<Integer, String> operator) {
-        return operator.apply(number);
-    }
+
 
     public ExtendedFizzBuzzer(BangAppender bangAppender, int bangThreshold, List<ConditionalBehavior> behaviors){
         this.bangAppender = bangAppender;
@@ -61,6 +59,9 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
         return answerToReturn;
     }
 
+    private String fizzBuzzBang(int number, Function<Integer, String> operator) {
+        return operator.apply(number);
+    }
 
     private String appendBangToAnswerIfNecessary(String baseAnswer) {
         if (studentIndex % bangThreshold == 0) {
