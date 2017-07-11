@@ -1,7 +1,5 @@
 package factory.behavior
 
-import java.util.function.Predicate
-
 import spock.lang.Specification
 
 class BehaviorFactorySpec extends Specification {

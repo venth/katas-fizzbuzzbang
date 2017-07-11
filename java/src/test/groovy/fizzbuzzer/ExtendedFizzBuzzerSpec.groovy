@@ -67,7 +67,7 @@ class ExtendedFizzBuzzerSpec extends Specification {
     }
 
 
-    def 'On integers divisible by three and five returns "FizzBuzzPowMrru"'(){
+    def 'On integers divisible by three and five returns answer containing FIZZ, POW, MRRU and POW'(){
 
         given:
             def numberDivisibleByThreeAndFive = 15
@@ -76,7 +76,11 @@ class ExtendedFizzBuzzerSpec extends Specification {
             def answer = extendedFizzBuzzer.getAnswer(numberDivisibleByThreeAndFive)
 
         then:
-            answer == FIZZ + BUZZ + POW + MRRU
+            assert(answer.contains(FIZZ))
+            assert(answer.contains(BUZZ))
+            assert(answer.contains(MRRU))
+            assert(answer.contains(POW))
+            assert(answer.length() == FIZZ.length() + POW.length() + MRRU.length() + BUZZ.length())
     }
 
 

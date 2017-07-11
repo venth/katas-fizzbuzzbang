@@ -1,15 +1,14 @@
 package fizzbuzzer;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 import appender.BangAppender;
 import factory.behavior.ConditionalBehavior;
 
-public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
-
-    private final String POW = "Pow";
-    private final String MRRU = "Mrru";
+public class ExtendedFizzBuzzer {
 
     private int studentIndex = 0;
 
@@ -34,31 +33,25 @@ public class ExtendedFizzBuzzer extends AbstractFizzBuzzer {
 
         StringBuilder answerBuilder = new StringBuilder();
 
-        boolean isNumberDivisibleByThree = number % 3 == 0;
-        boolean isNumberDivisibleByFive = number % 5 == 0;
-
-        String answer = "";
-
-        if (isNumberDivisibleByThree && isNumberDivisibleByFive) {
-            return FIZZ + BUZZ + POW + MRRU;
-        }
-
         behaviors.forEach(behavior -> {
           if (behavior.testCondition(number)) {
               answerBuilder.append(fizzBuzzBang(number, behavior.getOperator()));
           }
         });
 
-        String answerToReturn = answerBuilder.toString();
-        if (answerToReturn.isEmpty()) {
-            answerToReturn = String.valueOf(number);
-        }
-
-        return answerToReturn;
+        return Optional.of(answerBuilder.toString())
+                .filter(answer -> !answer.isEmpty())
+                .orElse(String.valueOf(number));
     }
 
-    private String fizzBuzzBang(int number, Function<Integer, String> operator) {
-        return operator.apply(number);
+    private String fizzBuzzBang(int number, Function<Integer, String>... buzzers) {
+
+        StringBuilder resultBuilder = new StringBuilder();
+
+        Arrays.asList(buzzers).forEach(buzzer -> resultBuilder.append(buzzer.apply(number)));
+
+        return resultBuilder.toString();
+
     }
 
     private String appendBangToAnswerIfNecessary(String baseAnswer) {

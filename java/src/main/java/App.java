@@ -1,12 +1,9 @@
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 
 import factory.behavior.AppenderBehaviorFactory;
 import factory.behavior.ConditionalBehavior;
 import factory.fizzbuzzer.ExtendedFizzBuzzerFactory;
 import fizzbuzzer.ExtendedFizzBuzzer;
-import fizzbuzzer.FizzBuzzer;
 
 
 public class App {
@@ -14,23 +11,12 @@ public class App {
     private static final int BANG_THRESHOLD = 15;
 
     public static void main(String[] args) {
-
-        printOutAnswersForFirstPartOfKata();
-
-        System.out.println("================");
-
-        printOutAnswersForSecondPartOfKata();
+        printOutAnswersForKata();
     }
 
-    private static void printOutAnswersForFirstPartOfKata() {
-        FizzBuzzer fizzBuzzer = new FizzBuzzer();
 
-        for (int i = 1; i < 101; i++){
-            System.out.println(fizzBuzzer.getAnswer(i));
-        }
-    }
 
-    private static void printOutAnswersForSecondPartOfKata() {
+    private static void printOutAnswersForKata() {
         List<ConditionalBehavior> behaviorList = createBehaviorList();
 
         ExtendedFizzBuzzer extendedFizzBuzzer = createExtendedFizzBuzzer(behaviorList);

@@ -2,7 +2,6 @@ package factory.behavior;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 /**
  * Created by marcin on 24.04.17.
